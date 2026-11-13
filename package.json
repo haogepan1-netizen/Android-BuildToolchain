@@ -1,0 +1,85 @@
+{
+  "name": "local-android-buildtoolchain",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "lib/index.js",
+  "description": "Android BuildToolchain - on-demand APK build toolchain for dsh-go, with per-library manifest traceability.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/haogepan1-netizen/Android-BuildToolchain.git"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "engines": {
+    "dsh": ">=0.2.1-rc.2 <0.3.0-0"
+  },
+  "dshGo": {
+    "v": 1,
+    "title": {
+      "zh": "构建工具链",
+      "en": "BuildToolchain"
+    },
+    "icon": "wrench",
+    "contributes": {
+      "composer.tools": [
+        {
+          "id": "toolchain-open",
+          "label": {
+            "zh": "工具链",
+            "en": "Tools"
+          },
+          "icon": "wrench",
+          "panel": "toolchain"
+        }
+      ],
+      "composer.strip": [
+        {
+          "id": "status",
+          "icon": "wrench",
+          "panel": "toolchain"
+        }
+      ],
+      "panels": [
+        {
+          "id": "toolchain",
+          "title": {
+            "zh": "构建工具链",
+            "en": "Toolchain"
+          },
+          "icon": "wrench",
+          "placement": [
+            "session.tab",
+            "features"
+          ]
+        },
+        {
+          "id": "notice",
+          "title": {
+            "zh": "安装前须知",
+            "en": "Before install"
+          },
+          "icon": "info",
+          "placement": [
+            "features"
+          ]
+        },
+        {
+          "id": "libs",
+          "title": {
+            "zh": "库选择",
+            "en": "Libraries"
+          },
+          "icon": "download",
+          "placement": [
+            "features"
+          ]
+        }
+      ]
+    }
+  }
+}

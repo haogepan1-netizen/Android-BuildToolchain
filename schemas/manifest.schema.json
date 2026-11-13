@@ -1,0 +1,170 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/haogepan1-netizen/Android-BuildToolchain/schemas/manifest.schema.json",
+  "title": "Android-BuildToolchain per-library manifest",
+  "description": "Written into <root>/libs/<id>/manifest.json after a successful install. immutable audit record.",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "version",
+    "source",
+    "installedAt",
+    "verify"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema": {
+      "const": "abt.manifest/1"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "title": {
+      "type": "object",
+      "required": [
+        "zh",
+        "en"
+      ],
+      "properties": {
+        "zh": {
+          "type": "string"
+        },
+        "en": {
+          "type": "string"
+        }
+      }
+    },
+    "version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "group": {
+      "enum": [
+        "java",
+        "build",
+        "reverse",
+        "dynamic",
+        "template"
+      ]
+    },
+    "dest": {
+      "type": "string",
+      "description": "Absolute install path of the extracted payload."
+    },
+    "archive": {
+      "enum": [
+        "zip",
+        "tar.gz",
+        "tar.xz",
+        "xz",
+        "deb"
+      ]
+    },
+    "bytes": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "source": {
+      "type": "object",
+      "required": [
+        "upstream",
+        "mirror",
+        "license",
+        "sha256"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "upstream": {
+          "type": "string",
+          "description": "Canonical upstream location."
+        },
+        "mirror": {
+          "type": "string",
+          "description": "Local mirror actually used."
+        },
+        "license": {
+          "type": "string"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      }
+    },
+    "deps": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "post": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Post-install repair hook id, e.g. jdk-repair."
+    },
+    "installedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "installedBy": {
+      "type": "string"
+    },
+    "files": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "File count in payload, for tamper detection."
+    },
+    "cacheFile": {
+      "type": "string"
+    },
+    "verify": {
+      "type": "object",
+      "required": [
+        "ok",
+        "detail"
+      ],
+      "properties": {
+        "ok": {
+          "type": "boolean"
+        },
+        "detail": {
+          "type": "string"
+        }
+      }
+    },
+    "postNotes": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string"
+      }
+    },
+    "repair": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "description": "Result of the post-install repair hook (e.g. jdk jlink rebuild).",
+      "properties": {
+        "ok": {
+          "type": "boolean"
+        },
+        "notes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "java": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
